@@ -260,4 +260,8 @@ public class Bullet {
         explosionDone = true;
     }
 
+    public void setSpeed(float speed) {
+        this.speed = speed;
+    }
+
 }

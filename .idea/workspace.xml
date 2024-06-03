@@ -5,7 +5,36 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="71ef0f59-0130-4fca-98ed-d826991dea98" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/com/tanks/game/Bonus.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tanks 1990.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Tanks 1990.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mydb.db" beforeDir="false" afterPath="$PROJECT_DIR$/mydb.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Tanks 1990/com/tanks/IO/Input$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Tanks 1990/com/tanks/IO/Input$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Tanks 1990/com/tanks/IO/Input$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Tanks 1990/com/tanks/IO/Input$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Tanks 1990/com/tanks/IO/Input.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Tanks 1990/com/tanks/IO/Input.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Tanks 1990/com/tanks/display/Display.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Tanks 1990/com/tanks/display/Display.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Tanks 1990/com/tanks/game/Bullet.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Tanks 1990/com/tanks/game/Bullet.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Tanks 1990/com/tanks/game/Enemy.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Tanks 1990/com/tanks/game/Enemy.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Tanks 1990/com/tanks/game/Game.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Tanks 1990/com/tanks/game/Game.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Tanks 1990/com/tanks/game/Player$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Tanks 1990/com/tanks/game/Player$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Tanks 1990/com/tanks/game/Player$Heading.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Tanks 1990/com/tanks/game/Player$Heading.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Tanks 1990/com/tanks/game/Player.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Tanks 1990/com/tanks/game/Player.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Tanks 1990/com/tanks/game/level/InfoPanel.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Tanks 1990/com/tanks/game/level/InfoPanel.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Tanks 1990/com/tanks/game/level/Level.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Tanks 1990/com/tanks/game/level/Level.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Tanks 1990/com/tanks/main/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Tanks 1990/com/tanks/main/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/global1.level" beforeDir="false" afterPath="$PROJECT_DIR$/res/global1.level" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/tanks/IO/Input.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tanks/IO/Input.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/tanks/display/Display.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tanks/display/Display.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/tanks/game/Bullet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tanks/game/Bullet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/tanks/game/DB/DBWorker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tanks/game/DB/DBWorker.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/tanks/game/Enemy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tanks/game/Enemy.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/tanks/game/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tanks/game/Game.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/tanks/game/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tanks/game/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/tanks/game/level/Level.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tanks/game/level/Level.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/tanks/main/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tanks/main/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/tanks/main/Menu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tanks/main/Menu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/tanks/main/ScoreboardDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tanks/main/ScoreboardDialog.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/mydb.db" beforeDir="false" afterPath="$PROJECT_DIR$/src/mydb.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/mydb.db-journal" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,10 +66,11 @@
   &quot;keyToString&quot;: {
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/Saveliy/IdeaProjects/Tanks 1990&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Saveliy/Documents/AAA/ИРНИТУ/2 Курс/ООП/Tanks-master/lab6&quot;,
     &quot;onboarding.tips.debug.path&quot;: &quot;C:/Users/Saveliy/IdeaProjects/Tanks 1990/src/Main.java&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Libraries&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;vcs.Git&quot;

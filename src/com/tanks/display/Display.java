@@ -27,6 +27,10 @@ public abstract class Display {
 
     private static BufferStrategy	bufferStrategy;
 
+    public static void window() {
+
+    }
+
     public static void create(int width, int height, String title, int _clearColor, int numBuffers) {
 
         if (created)
@@ -73,7 +77,6 @@ public abstract class Display {
 
     public static void clear() {
         Arrays.fill(bufferData, clearColor);
-
     }
 
     public static void swapBuffers() {
@@ -101,7 +104,8 @@ public abstract class Display {
 
     }
 
-    public static void addInputListener(Input inputListener) {
+    public static void addInputListener(Input inputListener)
+    {
         window.add(inputListener);
     }
 

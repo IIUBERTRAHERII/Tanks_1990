@@ -14,6 +14,8 @@ import java.awt.geom.Rectangle2D;
 import java.util.*;
 import java.util.List;
 
+import static com.tanks.game.Game.stage;
+
 
 public class Level {
     public static final int		TILE_SCALE				= 8;
@@ -37,6 +39,7 @@ public class Level {
     private boolean				eagleProtected;
     private InfoPanel			infoPanel;
     private boolean				eagleAlive;
+
 
     public Level(TextureAtlas atlas, int stage) {
         tiles = new HashMap<>();
@@ -81,13 +84,12 @@ public class Level {
         tiles.put(TileType.OTHER_WATER, new Tile(atlas.cut(33 * TILE_SCALE, 10 * TILE_SCALE, TILE_SCALE, TILE_SCALE),
                 TILE_IN_GAME_SCALE, TileType.OTHER_WATER));
 
-        tileMap = Utils.levelParser("res/level" + stage + ".lvl");
-        grassCords = new ArrayList<>();
-        for (int i = 0; i < tileMap.length; i++)
-            for (int j = 0; j < tileMap[i].length; j++) {
-                if (tileMap[i][j] == TileType.GRASS.numeric())
-                    grassCords.add(new Point(j * SCALED_TILE_SIZE, i * SCALED_TILE_SIZE));
-            }
+        loadLevel();
+
+    }
+
+    public Level() {
+
     }
 
     public void update(int tileX, int tileY) {
@@ -269,6 +271,31 @@ public class Level {
     public boolean isEagleAlive() {
         return eagleAlive;
     }
+
+    public void loadLevel() {
+
+        if (Game.WIDTH == 624) {
+            tileMap = Utils.levelParser("res/level" + stage + ".lvl");
+            grassCords = new ArrayList<>();
+            for (int i = 0; i < tileMap.length; i++)
+                for (int j = 0; j < tileMap[i].length; j++) {
+                    if (tileMap[i][j] == TileType.GRASS.numeric())
+                        grassCords.add(new Point(j * SCALED_TILE_SIZE, i * SCALED_TILE_SIZE));
+                }
+
+        } else {
+            tileMap = Utils.levelParser("res/global" + stage + ".level");
+                    grassCords = new ArrayList<>();
+            for (int i = 0; i < tileMap.length; i++)
+                for (int j = 0; j < tileMap[i].length; j++) {
+                    if (tileMap[i][j] == TileType.GRASS.numeric())
+                        grassCords.add(new Point(j * SCALED_TILE_SIZE, i * SCALED_TILE_SIZE));
+                }
+
+        }
+    }
+
+
 
 
 }

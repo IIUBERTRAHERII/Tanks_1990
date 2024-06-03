@@ -181,11 +181,9 @@ public abstract class Enemy extends Entity {
         }
 
         if (bullet == null && System.currentTimeMillis() % DELAY < 50)
-            bullet = new Bullet(x, y, scale, bulletSpeed, enemyHeading.toString().substring(0, 4), atlas, lvl,
-                    EntityType.Enemy);
+            bullet = new Bullet(x, y, scale, bulletSpeed, enemyHeading.toString().substring(0, 4), atlas, lvl, EntityType.Enemy);
         if (bullet != null && !bullet.isActive() && System.currentTimeMillis() % DELAY < 50) {
-            bullet = new Bullet(x, y, scale, bulletSpeed, enemyHeading.toString().substring(0, 4), atlas, lvl,
-                    EntityType.Enemy);
+            bullet = new Bullet(x, y, scale, bulletSpeed, enemyHeading.toString().substring(0, 4), atlas, lvl, EntityType.Enemy);
         }
 
     }

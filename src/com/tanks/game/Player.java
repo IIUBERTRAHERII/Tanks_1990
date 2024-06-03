@@ -15,6 +15,7 @@ import com.tanks.game.level.Level;
 import com.tanks.graphics.Sprite;
 import com.tanks.graphics.SpriteSheet;
 import com.tanks.graphics.TextureAtlas;
+import com.tanks.main.Menu;
 
 public class Player extends Entity {
 
@@ -62,6 +63,8 @@ public class Player extends Entity {
     private Bullet					bullet;
     private boolean					isProtected;
     private List<Sprite>			protectionList;
+
+    private long lastShootTime = 0;
 
     public Player(float scale, float speed, TextureAtlas atlas, Level lvl) {
         super(EntityType.Player, APPEARANCE_X, APPEARANCE_Y, scale, atlas, lvl);
@@ -221,14 +224,27 @@ public class Player extends Entity {
         }
 
         if (input.getKey(KeyEvent.VK_SPACE)) {
-            if (bullet == null || !bullet.isActive()) {
-                if (Game.getBullets(EntityType.Player).size() == 0) {
-                    bullet = new Bullet(x, y, scale, bulletSpeed, heading.toString().substring(0, 4), atlas, lvl,
-                            EntityType.Player);
-                }
+
+            long currentTime = System.currentTimeMillis();
+            // стрельба с перезарядкой
+            if (currentTime - lastShootTime >= 1000) {
+                lastShootTime = currentTime;
+                bullet = new Bullet(x, y, scale, bulletSpeed, heading.toString().substring(0, 4), atlas, lvl, EntityType.Player);
+                bullet.setSpeed(20);
             }
+
+            // тут пуля пока не столкнется
+            /*if (bullet == null || !bullet.isActive()) {
+                if (Game.getBullets(EntityType.Player).size() == 0) {
+                    bullet = new Bullet(x, y, scale, bulletSpeed, heading.toString().substring(0, 4), atlas, lvl, EntityType.Player);
+
+                }
+            }*/
         }
 
+        if (input.getKey(KeyEvent.VK_ESCAPE)) {
+
+        }
     }
 
     private boolean intersectsEnemy(float newX, float newY) {
@@ -372,6 +388,4 @@ public class Player extends Entity {
         }
 
     }
-
-
 }

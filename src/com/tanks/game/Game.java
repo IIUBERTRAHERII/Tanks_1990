@@ -1,6 +1,8 @@
 package com.tanks.game;
 
-import java.awt.Graphics2D;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.util.HashMap;
@@ -10,15 +12,22 @@ import java.util.Map;
 import java.util.Random;
 import com.tanks.IO.Input;
 import com.tanks.display.Display;
+import com.tanks.game.DB.DBWorker;
 import com.tanks.game.level.Level;
 import com.tanks.graphics.TextureAtlas;
 import com.tanks.utils.Time;
 import com.tanks.utils.Utils;
 
+import javax.swing.*;
+
+import static java.awt.Color.getColor;
+
 public class Game implements Runnable {
 
-    public static final int							WIDTH			= 1200;
-    public static final int							HEIGHT			= 960;
+
+    public static int							WIDTH			= 624;
+    public static int							HEIGHT			= 624;
+
     public static final String						TITLE			= "Tanks";
     public static final int							CLEAR_COLOR		= 0xff000000;
     public static final int							NUM_BUFFERS		= 3;
@@ -27,11 +36,13 @@ public class Game implements Runnable {
     public static final float						SCALE			= 3f;
     public static final long						IDLE_TIME		= 1;
     public static final String						ATLAS_FILE_NAME	= "texture_atlas.png";
-    private static final float						PLAYER_SPEED	= 3f;
 
+
+
+    private static final float						PLAYER_SPEED	= 3f;
     private static final int						FREEZE_TIME		= 8000;
     private static List<Enemy>						enemyList		= new LinkedList<>();
-    private static int								stage			= 1;
+    public static int								stage			= 1;
 
     private static Map<EntityType, List<Bullet>>	bullets;
     private static Graphics2D						graphics;
@@ -49,8 +60,16 @@ public class Game implements Runnable {
     private static boolean							gameOver;
     private BufferedImage							gameOverImage;
     private long									timeWin;
+    private boolean                                 pause     = false;
+    private int choice = 0;
+    private int                                     score;
+    private int                                     ID;
 
-    public Game() {
+    public Game(int WIDTH, int HEIGHT, int ID) {
+        this.WIDTH = WIDTH;
+        this.HEIGHT = HEIGHT;
+        this.ID = ID;
+
         running = false;
         Display.create(WIDTH + 8 * Level.SCALED_TILE_SIZE, HEIGHT, TITLE, CLEAR_COLOR, NUM_BUFFERS);
         graphics = Display.getGraphics();
@@ -67,8 +86,7 @@ public class Game implements Runnable {
         timeWin = 0;
         gameOver = false;
         gameOverImage = Utils.resize(
-                atlas.cut(36 * Level.TILE_SCALE, 23 * Level.TILE_SCALE, 4 * Level.TILE_SCALE, 2 * Level.TILE_SCALE),
-                4 * Level.SCALED_TILE_SIZE, 2 * Level.SCALED_TILE_SIZE);
+                atlas.cut(36 * Level.TILE_SCALE, 23 * Level.TILE_SCALE, 4 * Level.TILE_SCALE, 2 * Level.TILE_SCALE), 4 * Level.SCALED_TILE_SIZE, 2 * Level.SCALED_TILE_SIZE);
         for (int i = 0; i < gameOverImage.getHeight(); i++)
             for (int j = 0; j < gameOverImage.getWidth(); j++) {
                 int pixel = gameOverImage.getRGB(j, i);
@@ -82,27 +100,9 @@ public class Game implements Runnable {
 
         if (running)
             return;
-
         running = true;
         gameThread = new Thread(this);
         gameThread.start();
-
-    }
-
-    public synchronized void stop() {
-
-        if (!running)
-            return;
-
-        running = false;
-
-        try {
-            gameThread.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        cleanUp();
 
     }
 
@@ -160,7 +160,6 @@ public class Game implements Runnable {
                     }
                     enemy.setPlayer(player);
                     enemyList.add(enemy);
-                    ;
                 }
             }
         }
@@ -202,6 +201,40 @@ public class Game implements Runnable {
 
     }
 
+    private void restartWindow() {
+        JFrame restartFrame = new JFrame("Game Over");
+        restartFrame.setSize(300, 200);
+        restartFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        restartFrame.setLocationRelativeTo(null);
+        restartFrame.setLayout(new GridLayout(3, 1));
+
+        JLabel resultLabel = new JLabel("Your Results: " + getScore(), SwingConstants.CENTER);
+        restartFrame.add(resultLabel);
+
+        JButton restartButton = new JButton("Restart Game");
+        restartButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                restartFrame.dispose();
+                reset();
+
+                start();
+            }
+        });
+        restartFrame.add(restartButton);
+
+        JButton mainMenuButton = new JButton("Main Menu");
+        mainMenuButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                restartFrame.dispose();
+                new Menu();
+            }
+        });
+        restartFrame.add(mainMenuButton);
+
+        restartFrame.setVisible(true);
+    }
     private void nextLevel() {
 
         if (timeWin == 0 || System.currentTimeMillis() < timeWin + 5000)
@@ -210,17 +243,26 @@ public class Game implements Runnable {
         bullets = new HashMap<>();
         bullets.put(EntityType.Player, new LinkedList<Bullet>());
         bullets.put(EntityType.Enemy, new LinkedList<Bullet>());
+        score += 100;
         if (++stage > 3)
-            stage = 1;
+            restartWindow();
         lvl = new Level(atlas, stage);
         enemiesFrozen = false;
         enemyCount = 20;
         enemyList = new LinkedList<>();
         player.moveOnNextLevel();
         timeWin = 0;
-
+        DBWorker dbWorker = new DBWorker();
+        dbWorker.addScore(ID, 100);
     }
 
+    public int getScore() {
+        return score;
+    }
+
+    public void resetScore() {
+        score = 0;
+    }
     private void render() {
 
         Display.clear();
@@ -260,7 +302,6 @@ public class Game implements Runnable {
             bullet.render(graphics);
 
 
-
         lvl.renderGrass(graphics);
 
 
@@ -295,7 +336,10 @@ public class Game implements Runnable {
             delta += (elapsedTime / UPDATE_INTERVAL);
 
             while (delta > 1) {
-                update();
+                if (!pause) {
+                    update();
+                }
+
                 upd++;
                 delta--;
                 if (render) {
@@ -323,9 +367,16 @@ public class Game implements Runnable {
                 updl = 0;
                 count = 0;
             }
+            handleInput();
 
         }
 
+    }
+    public void handleInput() {
+        if (input.isEscPressed()) {
+            if (!pause) pause = true;
+            else pause = false;
+        }
     }
 
     private void cleanUp() {
@@ -383,6 +434,7 @@ public class Game implements Runnable {
         enemyList = new LinkedList<>();
         player = new Player(SCALE, PLAYER_SPEED, atlas, lvl);
         gameOver = false;
+
 
     }
 
